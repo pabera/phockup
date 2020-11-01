@@ -165,22 +165,21 @@ class Phockup():
                     printer.line(' => skipped, duplicated file %s' % target_file)
                     break
             else:
-                if self.move:
-                    try:
-                        if not self.dry_run:
+                if not self.dry_run:
+                    if self.move:
+                        try:
                             shutil.move(file, target_file)
-                    except FileNotFoundError:
-                        printer.line(' => skipped, no such file or directory')
-                        break
-                elif self.link and not self.dry_run:
-                    os.link(file, target_file)
-                else:
-                    try:
-                        if not self.dry_run:
+                        except FileNotFoundError:
+                            printer.line(' => skipped, no such file or directory')
+                            break
+                    elif self.link:
+                        os.link(file, target_file)
+                    else:
+                        try:
                             shutil.copy2(file, target_file)
-                    except FileNotFoundError:
-                        printer.line(' => skipped, no such file or directory')
-                        break
+                        except FileNotFoundError:
+                            printer.line(' => skipped, no such file or directory')
+                            break
 
                 printer.line(' => %s' % target_file)
                 self.process_xmp(file, target_file_name, suffix, output)
