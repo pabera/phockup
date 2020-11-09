@@ -34,7 +34,6 @@ class Phockup():
         self.date_field = args.get('date_field', False)
         self.dry_run = args.get('dry_run', False)
         self.file_type = args.get('file_type', None)
-        self.ignore_unknowns = args.get('ignore_unknowns', False)
 
         self.check_directories()
         self.walk_directory()
@@ -109,7 +108,7 @@ class Phockup():
 
         fullpath = os.path.sep.join(path)
 
-        if not os.path.isdir(fullpath) and not self.dry_run or not self.ignore_unknowns:
+        if not os.path.isdir(fullpath) and not self.dry_run:
             os.makedirs(fullpath)
 
         return fullpath
