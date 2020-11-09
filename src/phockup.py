@@ -161,8 +161,6 @@ class Phockup():
                     printer.line(' => skipped, file is %s but should be %s' % (target_file_type, self.file_type))
                     break
 
-                if not self.ignore_unknowns
-
             if os.path.isfile(target_file):
                 if self.checksum(file) == self.checksum(target_file):
                     printer.line(' => skipped, duplicated file %s' % target_file)
