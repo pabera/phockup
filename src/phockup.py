@@ -34,7 +34,7 @@ class Phockup():
         self.date_field = args.get('date_field', False)
         self.dry_run = args.get('dry_run', False)
         self.file_type = args.get('file_type', None)
-        self.ignore_unknowns = args.get('ignore_unknowns', None)
+        self.ignore_unknowns = args.get('ignore_unknowns', False)
 
         self.check_directories()
         self.walk_directory()
@@ -109,7 +109,7 @@ class Phockup():
 
         fullpath = os.path.sep.join(path)
 
-        if not os.path.isdir(fullpath) and not self.dry_run:
+        if not os.path.isdir(fullpath) and not self.dry_run or not self.ignore_unknowns:
             os.makedirs(fullpath)
 
         return fullpath
@@ -160,6 +160,8 @@ class Phockup():
                 if self.file_type is not None:
                     printer.line(' => skipped, file is %s but should be %s' % (target_file_type, self.file_type))
                     break
+
+                if not self.ignore_unknowns
 
             if os.path.isfile(target_file):
                 if self.checksum(file) == self.checksum(target_file):
