@@ -26,9 +26,22 @@ def main(argv):
     date_field = None
     dry_run = False
     file_type = None
+    ignore_unknowns = None
 
     try:
-        opts, args = getopt.getopt(argv[2:], "d:r:f:x:mltoyh", ["date=", "regex=", "move", "link", "original-names", "timestamp", "date-field=", "dry-run", "help", "file-type="])
+        opts, args = getopt.getopt(argv[2:], "d:r:f:x:mltoyhi", [
+            "date=",
+            "regex=",
+            "move", 
+            "link", 
+            "original-names", 
+            "timestamp", 
+            "date-field=", 
+            "dry-run", 
+            "help", 
+            "file-type=",
+            "ignore-unknowns",
+        ])
     except getopt.GetoptError:
         help(version)
         sys.exit(2)
@@ -85,6 +98,11 @@ def main(argv):
             except:
                 printer.error("File type can only be 'image' or 'video'")
 
+        if opt in ("-i", "--ignore-unknowns"):
+            ignore_unknowns = True
+            printer.line("Files that are not copied or moved remain in source folder")
+        
+
     if link and move:
         printer.error("Can't use move and link strategy together")
 
@@ -103,6 +121,7 @@ def main(argv):
         date_field=date_field,
         dry_run=dry_run,
         file_type=file_type,
+        ignore_unknowns=ignore_unknowns,
     )
 
 
