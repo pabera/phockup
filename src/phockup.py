@@ -10,7 +10,7 @@ from src.exif import Exif
 from src.printer import Printer
 
 printer = Printer()
-ignored_files = (".DS_Store", "Thumbs.db")
+ignored_files = (".DS_Store", "Thumbs.db", "@eaDir", "#recycle")
 
 
 class Phockup():
