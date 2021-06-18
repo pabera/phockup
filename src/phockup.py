@@ -12,7 +12,7 @@ from src.exif import Exif
 logger = logging.getLogger('phockup')
 
 
-ignored_files = ('.DS_Store', 'Thumbs.db')
+ignored_files = (".DS_Store", "Thumbs.db", "@eaDir", "#recycle")
 
 
 class Phockup():
